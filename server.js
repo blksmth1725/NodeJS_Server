@@ -1,29 +1,20 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => {
- console.log("GET request from homepage");
- res.send("Hello GET");
+app.use(express.static("public"));
+
+app.get("/index.html", (req, res) => {
+ res.sendFile(__dirname + "/" + "index.html");
 });
 
-app.post("/", (req, res) => {
- console.log("POST request from homepage");
- res.send("Hello POST");
-});
-
-app.delete("/del_user", (req, res) => {
- console.log("DELETE request from /del_user");
- res.send("Hello DELETE");
-});
-
-app.get("/list_user", (req, res) => {
- console.log("GET request from /list_user");
- res.send("Page Listing");
-});
-
-app.get("/ab*cd", (req, res) => {
- console.log("GET request from /ab*cd");
- res.send("Page Pattern Match");
+app.get("/proccess_get", (req, res) => {
+ response = {
+  first_name: req.query.first_name,
+  last_name: req.query.last_name,
+ };
+ console.log(response);
+ res.end(JSON.stringify(response));
 });
 
 const server = app.listen(3000, () => {
@@ -31,4 +22,13 @@ const server = app.listen(3000, () => {
  const port = server.address().port;
 
  console.log("Example app listening at http://%s:%s", host, port);
+});
+
+const oranges = ["orange", "orange"];
+const apples = ["just one apple"];
+oranges.forEach((fruit) => {
+ console.count(fruit);
+});
+apples.forEach((fruit) => {
+ console.count(fruit);
 });
