@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/cs-dev-profile", (req, res) => {
  console.log("GET request from homepage");
  res.send("Hello GET");
 });
