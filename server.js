@@ -1,34 +1,32 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const db = require("./config/keys");
+
 const app = express();
 
-app.get("/cs-dev-profile", (req, res) => {
- console.log("GET request from homepage");
- res.send("Hello GET");
-});
+//Body-Parser Middleware
+app.use(
+ bodyParser.urlencoded({
+  extended: false,
+ }),
+);
 
-app.post("/", (req, res) => {
- console.log("POST request from homepage");
- res.send("Hello POST");
-});
+app.use(bodyParser.json());
 
-app.delete("/del_user", (req, res) => {
- console.log("DELETE request from /del_user");
- res.send("Hello DELETE");
-});
+//Connect to MongoDB
+mongoose
+ .connect(db, { useNewUrlParser: true })
+ .then(() => console.log("MongoDB successfully connected"))
+ .catch((err) => console.log(err));
 
-app.get("/list_user", (req, res) => {
- console.log("GET request from /list_user");
- res.send("Page Listing");
-});
+// app.get("/cs-dev-profile", (req, res) => {
+//  console.log("GET request from homepage");
+//  res.send("Hello GET");
+// });
 
-app.get("/ab*cd", (req, res) => {
- console.log("GET request from /ab*cd");
- res.send("Page Pattern Match");
-});
+const port = process.env.PORT || 5000;
 
-const server = app.listen(3000, () => {
- const host = server.address().address;
- const port = server.address().port;
+app.listen(port, () => console.log(`Server up and running on port ${port}`));
 
- console.log("Example app listening at http://%s:%s", host, port);
-});
+console.log("Example app listening at http://%s:%s", host, port);
