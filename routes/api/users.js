@@ -16,7 +16,6 @@ const User = require("../../models/User");
 // @access Public
 router.post("/register", (req, res) => {
  //Form validation
-
  const { errors, isValid } = validateRegistrationInput(req.body);
 
  //Check Validation
@@ -48,3 +47,57 @@ router.post("/register", (req, res) => {
   }
  });
 });
+
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
+router.post("/login", (req, res) => {
+ //Form validation
+ const { errors, isValid } = validateloginInput(req.body);
+
+ //Check validation
+ if (!isValid) {
+  return res.status(400).json(errors);
+ }
+
+ const email = req.body.email;
+ const password = req.body.password;
+
+ //Find user by Email
+ User.findOne({ email }).then((user) => {
+  //Check if user exists
+  if (!user) {
+   return res.status(404).json({ emailNotFoun: "Email not found" });
+  }
+  //Check password
+  bycrypt.compare(password, user.password).then((isMatch) => {
+   if (isMatch) {
+    //User Matched
+    //Create JWT Payload
+    const payload = {
+     id: user.id,
+     name: user.name,
+    };
+
+    //Sign Token
+    jwt.sign(
+     payload,
+     keys.secretOrKey,
+     {
+      expiresIn: 60, // 1 minute in seconds
+     },
+     (err, token) => {
+      res.json({
+       success: true,
+       token: "Bearer " + token,
+      });
+     },
+    );
+   } else {
+    return res.status(400).json({ passwordincorrect: "Password is incorrect" });
+   }
+  });
+ });
+});
+
+module.exports = router;
