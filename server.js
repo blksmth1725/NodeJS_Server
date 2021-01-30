@@ -3,9 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-//DB config
-const db = require("./config/keys").mongoURI;
-
 const users = require("./routes/api/users");
 
 const app = express();
@@ -19,9 +16,12 @@ app.use(
 
 app.use(bodyParser.json());
 
+//DB config
+const db = require("./config/keys").mongoURI;
+
 //Connect to MongoDB
 mongoose
- .connect(db, { useNewUrlParser: true })
+ .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
  .then(() => console.log("MongoDB successfully connected"))
  .catch((err) => console.log(err));
 
