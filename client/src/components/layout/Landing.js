@@ -10,7 +10,7 @@ const Landing = () => {
    className="container valign-wrapper"
   >
    <div className="row">
-    <div className=" col s12 center-align">
+    <div className="col s12 center-align">
      <h4>
       <b>Build</b> a login/auth app with the{" "}
       <span
@@ -18,7 +18,7 @@ const Landing = () => {
         fontFamily: "monospace",
        }}
       >
-       MERN
+       MERN-Stack
       </span>
      </h4>
      <p className="flow-text grey-text text-darken-1">
@@ -26,6 +26,19 @@ const Landing = () => {
       JWT
      </p>
      <br />
+     <div className="col s6">
+      <Link
+       to="/register"
+       className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+       style={{
+        width: "140px",
+        borderRadius: "3px",
+        letterSpacing: "1.5px",
+       }}
+      >
+       Register
+      </Link>
+     </div>
      <div className="col s6">
       <Link
        to="/login"

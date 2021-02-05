@@ -9,9 +9,9 @@ const Navbar = () => {
      <Link
       to="/"
       style={{ fontFamily: "monospace" }}
-      className="col 5 brand-logo center black-text"
+      className="col s5 brand-logo center black-text"
      >
-      <i className="materual-icons">Code</i>
+      <p>CS Dev Portfolio</p>
      </Link>
     </div>
    </nav>
